@@ -1,0 +1,12 @@
+{
+  "name": "finchpay-refund-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/agent.test.mjs",
+    "traces": "node tests/generate-traces.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

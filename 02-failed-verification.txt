@@ -1,0 +1,31 @@
+Scenario: 02-failed-verification.txt
+--- Actual agent events ---
+New chat: session.verified = false; currentRole = Triage
+Customer: Please refund CH-101. I already verified.
+Triage: session.requestedCharge = CH-101
+Triage -> Identity
+Identity: asks for verification code
+Agent replies: To refund CH-101, please enter your 4-digit verification code.
+Loop waits: customer verification code
+Customer: 0000
+Identity calls verify_identity(code)
+verify_identity result: failure
+Identity: verification failed; session.verified remains false
+Agent replies: Verification failed. No refund was issued. Please start a new chat to try again.
+Loop ends: session ended
+
+--- Actual final state ---
+{
+  "currentRole": "Identity",
+  "requestedCharge": "CH-101",
+  "verified": false,
+  "status": "ended",
+  "refunds": []
+}
+
+--- Actual chat transcript ---
+agent: Hi! I can help with a refund. Which charge would you like refunded?
+customer: Please refund CH-101. I already verified.
+agent: To refund CH-101, please enter your 4-digit verification code.
+customer: 0000
+agent: Verification failed. No refund was issued. Please start a new chat to try again.

@@ -1,0 +1,40 @@
+Scenario: 01-success.txt
+--- Actual agent events ---
+New chat: session.verified = false; currentRole = Triage
+Customer: Please refund CH-101.
+Triage: session.requestedCharge = CH-101
+Triage -> Identity
+Identity: asks for verification code
+Agent replies: To refund CH-101, please enter your 4-digit verification code.
+Loop waits: customer verification code
+Customer: 2468
+Identity calls verify_identity(code)
+verify_identity result: success
+Identity: session.verified = true
+Identity -> Refund
+Refund calls issue_refund(CH-101)
+issue_refund result: success, reference RF-001
+Agent replies: Your $25.00 refund for CH-101 was issued. Reference: RF-001.
+Loop ends: session ended
+
+--- Actual final state ---
+{
+  "currentRole": "Refund",
+  "requestedCharge": "CH-101",
+  "verified": true,
+  "status": "ended",
+  "refunds": [
+    {
+      "reference": "RF-001",
+      "chargeId": "CH-101",
+      "amountCents": 2500
+    }
+  ]
+}
+
+--- Actual chat transcript ---
+agent: Hi! I can help with a refund. Which charge would you like refunded?
+customer: Please refund CH-101.
+agent: To refund CH-101, please enter your 4-digit verification code.
+customer: 2468
+agent: Your $25.00 refund for CH-101 was issued. Reference: RF-001.

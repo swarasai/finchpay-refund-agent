@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FinchPay · Refund Assistant</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div><div class="brand">◈ FinchPay</div><h1>Refund assistant</h1><p>Secure refund flow · Demo</p></div>
+      <button id="new-chat" class="reset" type="button">New chat</button>
+    </header>
+    <section class="layout" aria-label="Refund demo">
+      <section class="chat card" aria-label="Chat">
+        <div class="card-top"><span class="online-dot"></span> Support chat <span class="tag">Mock data</span></div>
+        <div id="transcript" class="transcript" aria-live="polite"></div>
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="message">Your message</label>
+          <input id="message" type="text" placeholder="Type a message…" autocomplete="off" autofocus />
+          <button id="send" type="submit">Send <span aria-hidden="true">↗</span></button>
+        </form>
+      </section>
+      <aside class="card debug" aria-label="Execution trace">
+        <div class="card-top">Execution trace <span class="tag">Live</span></div>
+        <pre id="trace" class="trace" aria-live="polite"></pre>
+        <div class="hint">Shows role handoffs, tool results, state changes, waits, and stops. Nothing is sent to a server.</div>
+      </aside>
+    </section>
+    <footer>Demo-only identity check: <code>2468</code> · Charge: <code>CH-101</code> ($25.00)</footer>
+  </main>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
